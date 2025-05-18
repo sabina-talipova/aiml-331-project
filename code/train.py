@@ -1,39 +1,57 @@
-class ModelTrainer:
-    def __init__(self, dir, model):
-        """
-        Initializes the ModelTrainer instance.
-        Args:
-            dir (str): Directory containing image data.
-            model (torch.nn.Module): PyTorch model to be trained.
-        """
-        self.dir = dir
-        self.__model = model
-        self.__train_loader = None  # DataLoader for training data
-        self.__criterion = None  # Loss function
-        self.__optimizer = None  # Optimizer for model training
-        self.__device = None  # Device on which to train the model (CPU or GPU)
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import DataLoader
+from torchvision import datasets, transforms
+from model import SimpleCNN
+from torch.utils.tensorboard import SummaryWriter
 
-def main():
-    """
-    Main function to initiate model training.
-    Loads environment variables, initializes the model trainer with the data folder path and
-    a custom CNN model, and performs cross-validation training.
-    """
-    # Load environment variables (e.g., for data paths or other configurations)
-    load_dotenv()
-    print("Training model...")
+transform = transforms.Compose([
+    transforms.Resize((128, 128)),
+    transforms.ToTensor()
+])
 
-    # Initialize ModelTrainer with the specified data folder and custom CNN model
-    my_object = ModelTrainer(DATA_FOLDER_PATH, CustomCNN())
+train_data = datasets.ImageFolder("data/train", transform=transform)
+val_data = datasets.ImageFolder("data/val", transform=transform)
 
-    # Train the model using cross-validation on the dataset
-    my_object.train_model_CV()
+train_loader = DataLoader(train_data, batch_size=32, shuffle=True)
+val_loader = DataLoader(val_data, batch_size=32)
 
-    # Optional: Uncomment to train and create the model without cross-validation
-    # my_object.create_model()
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model = SimpleCNN().to(device)
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-    print("Training model DONE")
+writer = SummaryWriter("runs/exp1")
 
-# Entry point to start the main function if this script is run directly
-if __name__ == "__main__":
-    main()
+for epoch in range(20):
+    model.train()
+    running_loss = 0.0
+    for inputs, labels in train_loader:
+        inputs, labels = inputs.to(device), labels.to(device)
+        optimizer.zero_grad()
+        outputs = model(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+        running_loss += loss.item()
+
+    avg_loss = running_loss / len(train_loader)
+    writer.add_scalar("Loss/train", avg_loss, epoch)
+
+    # Validation
+    model.eval()
+    correct = 0
+    total = 0
+    with torch.no_grad():
+        for inputs, labels in val_loader:
+            inputs, labels = inputs.to(device), labels.to(device)
+            outputs = model(inputs)
+            _, predicted = torch.max(outputs, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+    val_acc = correct / total
+    writer.add_scalar("Accuracy/val", val_acc, epoch)
+
+    print(f"Epoch {epoch+1}: Train loss={avg_loss:.4f}, Val acc={val_acc:.4f}")
