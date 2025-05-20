@@ -7,22 +7,21 @@ from torch.utils.tensorboard import SummaryWriter
 from model import VisionTransformer
 import time
 
-def train_model(config):
+import dataset_wrapper
+
+def train_vit_model(config):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     writer = SummaryWriter(log_dir=f'runs/vit_heads{config["heads"]}_layers{config["layers"]}_patch{config["patch"]}_pos{config["pos"]}')
 
-    transform = transforms.Compose([
-        transforms.Resize((128, 128)),
-        transforms.ToTensor(),
-    ])
+    train_dataset, val_dataset, test_dataset = dataset_wrapper.get_pet_datasets(
+        img_width=128,
+        img_height=128,
+        root_path='data'
+    )
 
-    train_ds = datasets.ImageFolder(config['data_path'] + '/train.py', transform=transform)
-    val_ds   = datasets.ImageFolder(config['data_path'] + '/val', transform=transform)
-    test_ds  = datasets.ImageFolder(config['data_path'] + '/test', transform=transform)
-
-    train_loader = DataLoader(train_ds, batch_size=32, shuffle=True)
-    val_loader   = DataLoader(val_ds, batch_size=32)
-    test_loader  = DataLoader(test_ds, batch_size=32)
+    train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+    val_loader   = DataLoader(val_dataset, batch_size=32)
+    test_loader  = DataLoader(test_dataset, batch_size=32)
 
     model = VisionTransformer(
         image_size=128,

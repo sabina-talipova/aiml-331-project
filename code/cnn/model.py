@@ -19,6 +19,8 @@ class SimpleCNN(nn.Module):
             conv_block(3, 32),
             conv_block(32, 64),
             conv_block(64, 128),
+            conv_block(128, 256),
+            conv_block(256, 512),
             nn.AdaptiveAvgPool2d((1, 1))
         )
 

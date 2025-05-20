@@ -1,4 +1,3 @@
-# train.py
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -10,9 +9,9 @@ import torchvision.datasets as datasets
 from models.base_cnn import SimpleCNN
 from models.cnn_with_attention import CNNWithCBAM
 
-def train(model, train_loader, val_loader, criterion, optimizer, epochs=20, log_dir='runs/exp1', device='cuda'):
-    writer = SummaryWriter(log_dir)
-    model.to(device)
+def train_cnn_with_attention_model(model, train_loader, val_loader, criterion, optimizer, epochs=20):
+    writer = SummaryWriter('runs/exp1')
+    model.to('cuda')
 
     for epoch in range(epochs):
         model.train()
