@@ -19,11 +19,12 @@ class SimpleCNN(nn.Module):
             conv_block(3, 32),
             conv_block(32, 64),
             conv_block(64, 128),
+            nn.AdaptiveAvgPool2d((1, 1))
         )
 
         self.classifier = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(128 * 32 * 32, 256),
+            nn.Linear(128, 256),
             nn.ReLU(),
             nn.Linear(256, num_classes)
         )

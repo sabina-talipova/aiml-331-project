@@ -6,16 +6,23 @@ from torchvision import datasets, transforms
 from model import SimpleCNN
 from torch.utils.tensorboard import SummaryWriter
 
-transform = transforms.Compose([
-    transforms.Resize((128, 128)),
-    transforms.ToTensor()
-])
-
-train_data = datasets.ImageFolder("data/train", transform=transform)
-val_data = datasets.ImageFolder("data/val", transform=transform)
-
-train_loader = DataLoader(train_data, batch_size=32, shuffle=True)
-val_loader = DataLoader(val_data, batch_size=32)
+import dataset_wrapper
+train_dataset, val_dataset, test_dataset = dataset_wrapper.get_pet_datasets(
+ img_width=128,
+ img_height=128,
+ root_path='data'
+)
+#
+# transform = transforms.Compose([
+#     transforms.Resize((128, 128)),
+#     transforms.ToTensor()
+# ])
+#
+# train_data = datasets.ImageFolder("data/train.py", transform=transform)
+# val_data = datasets.ImageFolder("data/val", transform=transform)
+#
+train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+val_loader = DataLoader(val_dataset, batch_size=32)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = SimpleCNN().to(device)
@@ -37,7 +44,7 @@ for epoch in range(20):
         running_loss += loss.item()
 
     avg_loss = running_loss / len(train_loader)
-    writer.add_scalar("Loss/train", avg_loss, epoch)
+    writer.add_scalar("Loss/train.py", avg_loss, epoch)
 
     # Validation
     model.eval()

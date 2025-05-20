@@ -164,5 +164,7 @@ cython_debug/
 report.txt
 
 train_data/
-
+data/
+runs/
+oxford-iiit-pet/
 

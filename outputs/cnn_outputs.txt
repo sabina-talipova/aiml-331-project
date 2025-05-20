@@ -1,0 +1,27 @@
+# python3 code/train.py
+Downloading https://thor.robots.ox.ac.uk/pets/images.tar.gz to data/oxford-iiit-pet/images.tar.gz
+100.0%
+Extracting data/oxford-iiit-pet/images.tar.gz to data/oxford-iiit-pet
+Downloading https://thor.robots.ox.ac.uk/pets/annotations.tar.gz to data/oxford-iiit-pet/annotations.tar.gz
+100.0%
+Extracting data/oxford-iiit-pet/annotations.tar.gz to data/oxford-iiit-pet
+Epoch 1: Train loss=1.2450, Val acc=0.3711
+Epoch 2: Train loss=1.2102, Val acc=0.3782
+Epoch 3: Train loss=1.1786, Val acc=0.4104
+Epoch 4: Train loss=1.1534, Val acc=0.4300
+Epoch 5: Train loss=1.1218, Val acc=0.4328
+Epoch 6: Train loss=1.1062, Val acc=0.4328
+Epoch 7: Train loss=1.0698, Val acc=0.3599
+Epoch 8: Train loss=1.0502, Val acc=0.5210
+Epoch 9: Train loss=1.0285, Val acc=0.4916
+Epoch 10: Train loss=1.0038, Val acc=0.4748
+Epoch 11: Train loss=0.9739, Val acc=0.4230
+Epoch 12: Train loss=0.9579, Val acc=0.5560
+Epoch 13: Train loss=0.9237, Val acc=0.5602
+Epoch 14: Train loss=0.9217, Val acc=0.4244
+Epoch 15: Train loss=0.8950, Val acc=0.5098
+Epoch 16: Train loss=0.8583, Val acc=0.4888
+Epoch 17: Train loss=0.8561, Val acc=0.6148
+Epoch 18: Train loss=0.8248, Val acc=0.5490
+Epoch 19: Train loss=0.8193, Val acc=0.4874
+Epoch 20: Train loss=0.8011, Val acc=0.5252
