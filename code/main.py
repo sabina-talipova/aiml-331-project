@@ -1,9 +1,8 @@
 import argparse
-import vit.train as vit_train
-import cnn.train as cnn_train
-import cnn_attention.train as cnn_attention_train
-
-import vit.train_model
+from cnn.model import SimpleCNN
+from cnn_attention.model import AttentionCNN
+from vit.model import VisionTransformer
+from train import train_model
 
 def main():
     print("Training model...")
@@ -14,11 +13,51 @@ def main():
     args = parser.parse_args()
 
     if args.model == 'cnn_attention':
-        cnn_attention.train_cnn_with_attention_model()
+        print("Training model CNN with Attention ...")
+        config = {
+            "epochs": args.epochs,
+            "batch_size": 32,
+            "lr": 0.001,
+            "model_kwargs": {"num_classes": 4},
+            "log_dir": "runs/attention"
+        }
+        train_model(config, AttentionCNN)
+
     elif args.model == 'vit':
-        cnn_train.train_model({"epochs": args.model})
+        print("Training model VisionTransformer ...")
+        config = {
+            "epochs": args.epochs,
+            "batch_size": 32,
+            "lr": 0.001,
+            "model_kwargs": {
+                "img_size": 128,
+                "patch_size": 16,
+                "in_channels": 3,
+                "embed_dim": 60,
+                "num_classes": 4,
+                "depth": 6,
+                "num_heads": 4,
+                "use_positional_embedding": True
+            },
+            "log_dir": "runs/vit_patch16_heads4"
+        }
+        train_model(config, VisionTransformer)
     else:
-        cnn_train.train_model({"epochs": args.model})
+        print("Training model SimpleCNN ...")
+        config = {
+            "epochs": args.epochs,
+            "batch_size": 32,
+            "lr": 0.001,
+            "model_kwargs": {"num_classes": 4},
+            "log_dir": "runs/simplecnn"
+        }
+        train_model(config, SimpleCNN)
+
+        print("Training model ResidualCNN ...")
+
+        config["log_dir"] = "runs/residual"
+        config["model_kwargs"] = {"in_channels": 3, "out_channels": 64}
+        train_model(config, ResidualCNN)
 
     print("Training model DONE")
 
