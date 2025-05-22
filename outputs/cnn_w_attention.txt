@@ -1,0 +1,27 @@
+# python3 main.py --model cnn_attention --epochs 20
+Training model...
+Training model CNN with Attention ...
+Device: %s cuda
+Load dataset
+Epoch 1: Train loss=1.2363, Val acc=0.3725
+Epoch 2: Train loss=1.1647, Val acc=0.4370
+Epoch 3: Train loss=1.1268, Val acc=0.4426
+Epoch 4: Train loss=1.0803, Val acc=0.4846
+Epoch 5: Train loss=1.0158, Val acc=0.5084
+Epoch 6: Train loss=0.9430, Val acc=0.5406
+Epoch 7: Train loss=0.8706, Val acc=0.5686
+Epoch 8: Train loss=0.8224, Val acc=0.5154
+Epoch 9: Train loss=0.7594, Val acc=0.5616
+Epoch 10: Train loss=0.7113, Val acc=0.5980
+Epoch 11: Train loss=0.6611, Val acc=0.6162
+Epoch 12: Train loss=0.5868, Val acc=0.5840
+Epoch 13: Train loss=0.5637, Val acc=0.4860
+Epoch 14: Train loss=0.5022, Val acc=0.5994
+Epoch 15: Train loss=0.4717, Val acc=0.5910
+Epoch 16: Train loss=0.4239, Val acc=0.6485
+Epoch 17: Train loss=0.4012, Val acc=0.5896
+Epoch 18: Train loss=0.3571, Val acc=0.5630
+Epoch 19: Train loss=0.3162, Val acc=0.5896
+Epoch 20: Train loss=0.2809, Val acc=0.5560
+Final Test Accuracy: 0.5810, Inference time: 0.000471s per image
+Training model DONE

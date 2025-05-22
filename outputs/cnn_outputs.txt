@@ -1,27 +1,51 @@
-# python3 code/train.py
-Downloading https://thor.robots.ox.ac.uk/pets/images.tar.gz to data/oxford-iiit-pet/images.tar.gz
-100.0%
-Extracting data/oxford-iiit-pet/images.tar.gz to data/oxford-iiit-pet
-Downloading https://thor.robots.ox.ac.uk/pets/annotations.tar.gz to data/oxford-iiit-pet/annotations.tar.gz
-100.0%
-Extracting data/oxford-iiit-pet/annotations.tar.gz to data/oxford-iiit-pet
-Epoch 1: Train loss=1.2450, Val acc=0.3711
-Epoch 2: Train loss=1.2102, Val acc=0.3782
-Epoch 3: Train loss=1.1786, Val acc=0.4104
-Epoch 4: Train loss=1.1534, Val acc=0.4300
-Epoch 5: Train loss=1.1218, Val acc=0.4328
-Epoch 6: Train loss=1.1062, Val acc=0.4328
-Epoch 7: Train loss=1.0698, Val acc=0.3599
-Epoch 8: Train loss=1.0502, Val acc=0.5210
-Epoch 9: Train loss=1.0285, Val acc=0.4916
-Epoch 10: Train loss=1.0038, Val acc=0.4748
-Epoch 11: Train loss=0.9739, Val acc=0.4230
-Epoch 12: Train loss=0.9579, Val acc=0.5560
-Epoch 13: Train loss=0.9237, Val acc=0.5602
-Epoch 14: Train loss=0.9217, Val acc=0.4244
-Epoch 15: Train loss=0.8950, Val acc=0.5098
-Epoch 16: Train loss=0.8583, Val acc=0.4888
-Epoch 17: Train loss=0.8561, Val acc=0.6148
-Epoch 18: Train loss=0.8248, Val acc=0.5490
-Epoch 19: Train loss=0.8193, Val acc=0.4874
-Epoch 20: Train loss=0.8011, Val acc=0.5252
+# python3 main.py --model cnn --epochs 20
+Training model...
+Training model SimpleCNN ...
+Device: %s cuda
+Load dataset
+Epoch 1: Train loss=1.2360, Val acc=0.3487
+Epoch 2: Train loss=1.1454, Val acc=0.3459
+Epoch 3: Train loss=1.0850, Val acc=0.4664
+Epoch 4: Train loss=0.9897, Val acc=0.4706
+Epoch 5: Train loss=0.8764, Val acc=0.5938
+Epoch 6: Train loss=0.7816, Val acc=0.5154
+Epoch 7: Train loss=0.6993, Val acc=0.5952
+Epoch 8: Train loss=0.6131, Val acc=0.6905
+Epoch 9: Train loss=0.5475, Val acc=0.6541
+Epoch 10: Train loss=0.4970, Val acc=0.7017
+Epoch 11: Train loss=0.4136, Val acc=0.6723
+Epoch 12: Train loss=0.3408, Val acc=0.6541
+Epoch 13: Train loss=0.2833, Val acc=0.6583
+Epoch 14: Train loss=0.2307, Val acc=0.6835
+Epoch 15: Train loss=0.2016, Val acc=0.6667
+Epoch 16: Train loss=0.1422, Val acc=0.7241
+Epoch 17: Train loss=0.1223, Val acc=0.6443
+Epoch 18: Train loss=0.1174, Val acc=0.7703
+Epoch 19: Train loss=0.0997, Val acc=0.6751
+Epoch 20: Train loss=0.0608, Val acc=0.7619
+Final Test Accuracy: 0.7598, Inference time: 0.000217s per image
+Training model ResidualCNN ...
+Device: %s cuda
+Load dataset
+Epoch 1: Train loss=1.2617, Val acc=0.3445
+Epoch 2: Train loss=1.2005, Val acc=0.3880
+Epoch 3: Train loss=1.1506, Val acc=0.4804
+Epoch 4: Train loss=1.0923, Val acc=0.4832
+Epoch 5: Train loss=1.0106, Val acc=0.5000
+Epoch 6: Train loss=0.9256, Val acc=0.5448
+Epoch 7: Train loss=0.8215, Val acc=0.6218
+Epoch 8: Train loss=0.7010, Val acc=0.6303
+Epoch 9: Train loss=0.6171, Val acc=0.6429
+Epoch 10: Train loss=0.5133, Val acc=0.7213
+Epoch 11: Train loss=0.4539, Val acc=0.7353
+Epoch 12: Train loss=0.3824, Val acc=0.7409
+Epoch 13: Train loss=0.3092, Val acc=0.6905
+Epoch 14: Train loss=0.2595, Val acc=0.7325
+Epoch 15: Train loss=0.2104, Val acc=0.6527
+Epoch 16: Train loss=0.1537, Val acc=0.7675
+Epoch 17: Train loss=0.1422, Val acc=0.7661
+Epoch 18: Train loss=0.0912, Val acc=0.7675
+Epoch 19: Train loss=0.0786, Val acc=0.7269
+Epoch 20: Train loss=0.0746, Val acc=0.7787
+Final Test Accuracy: 0.8059, Inference time: 0.001166s per image
+Training model DONE

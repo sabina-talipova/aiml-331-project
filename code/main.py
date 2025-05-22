@@ -1,5 +1,5 @@
 import argparse
-from cnn.model import SimpleCNN
+from cnn.model import SimpleCNN, ResidualCNN
 from cnn_attention.model import AttentionCNN
 from vit.model import VisionTransformer
 from train import train_model
@@ -8,7 +8,7 @@ def main():
     print("Training model...")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', type=str, default='cnn', choices=['cnn', 'vit', 'cnn_attention'])
+    parser.add_argument('--model', type=str, default='cnn', choices=['cnn', 'vit', 'cnn_attention', ])
     parser.add_argument('--epochs', type=int, default=20)
     args = parser.parse_args()
 
@@ -30,14 +30,12 @@ def main():
             "batch_size": 32,
             "lr": 0.001,
             "model_kwargs": {
-                "img_size": 128,
+                "image_size": 128,
                 "patch_size": 16,
                 "in_channels": 3,
                 "embed_dim": 60,
                 "num_classes": 4,
-                "depth": 6,
                 "num_heads": 4,
-                "use_positional_embedding": True
             },
             "log_dir": "runs/vit_patch16_heads4"
         }
@@ -56,7 +54,7 @@ def main():
         print("Training model ResidualCNN ...")
 
         config["log_dir"] = "runs/residual"
-        config["model_kwargs"] = {"in_channels": 3, "out_channels": 64}
+        config["model_kwargs"] = {"num_classes": 6}
         train_model(config, ResidualCNN)
 
     print("Training model DONE")
