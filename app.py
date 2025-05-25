@@ -1,29 +1,4 @@
 from flask import Flask, request, jsonify
-# from PIL import Image
-
-# def preprocess_image(image_path):
-#     image = Image.open(image_path)
-#     transform = transforms.Compose([
-#         transforms.Resize((32, 32)),
-#         transforms.ToTensor(),
-#         transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]),
-#     ])
-#     image = transform(image).unsqueeze(0)  # Добавляем batch размер
-#     return image
-#
-# def predict(image_path):
-#     model.eval()
-#     image = preprocess_image(image_path)
-#     image = image.to(device)
-#     with torch.no_grad():
-#         outputs = model(image)
-#         _, predicted = torch.max(outputs, 1)
-#     return predicted.item()
-#
-# label = predict('path_to_your_image.jpg')
-# print(f'Predicted label: {label}')
-
-
 
 app = Flask(__name__)
 

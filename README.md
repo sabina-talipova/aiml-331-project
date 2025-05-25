@@ -135,3 +135,65 @@ Then open the provided URL (usually `http://localhost:6006`) in your browser.
 * The dataset loading code is assumed to be implemented in `dataset_wrapper.py`.
 * Model parameters like number of classes, image size, patch size can be modified in the config dictionaries within `main.py`.
 
+## Running the Project with Docker (CUDA Support)
+This project supports running in a Docker container with GPU acceleration, provided your system supports CUDA. It uses the official nvidia/cuda base image.
+
+### Requirements
+An NVIDIA GPU with CUDA support
+
+### Installed Docker and NVIDIA Container Toolkit
+- Installation guide: NVIDIA Container Toolkit Docs
+
+To verify that your GPU is accessible in Docker:
+
+```bash
+docker run --rm --gpus all nvidia/cuda:12.9.0-base-ubuntu22.04 nvidia-smi
+```
+### Dockerfile
+This project includes a Dockerfile based on CUDA 12.9 with cuDNN support:
+
+```Dockerfile
+
+FROM nvidia/cuda:12.9.0-cudnn-devel-ubuntu22.04
+
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip bash nano && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY . .
+
+RUN pip install --upgrade pip
+RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+RUN pip install Flask
+
+CMD ["python3", "app.py"]
+```
+### Build and Run the Container
+Build the Docker image:
+
+```bash
+docker build -t my-cuda-app .
+```
+Or use `docker compose` command
+
+```bash
+docker compose up --build
+```
+
+### Run the container with GPU access:
+
+```bash
+docker run --gpus all -it --rm -p 5000:5000 my-cuda-app
+```
+
+If you're running a Flask app or Jupyter server inside app.py, make sure it's bound to 0.0.0.0.
+
+### TensorBoard (if used)
+If your training script logs metrics to TensorBoard, expose port 6006:
+
+```bash
+docker run --gpus all -it --rm -p 5000:5000 -p 6006:6006 my-cuda-app
+```
+Then open: http://localhost:6006
+
